@@ -1,0 +1,25 @@
+org 100h
+.DATA
+A DB 11H
+B DB 1FH
+C DB 3DH
+.CODE
+MAIN PROC
+;-(A+B+C) TERM
+MOV AL, A ; AL=A
+ADD AL, B ; AL=A+B
+ADD AL, C ; AL=A+B+C
+NEG AL ; AL=-AL
+;-(A+B+C) - 2(B-1) TERM
+DEC B ; B=B-1
+MOV BL, B ; BX=B
+ADD BL, B ; BX=2B
+SUB AL, BL ; AX=AX-BX
+;-(A+B+C) - 2(B-1)+2(c+1) TERM
+INC C ; C=C+1
+ADD AH, C ; AX=AX-C
+ADD AH, C ; AX=AX-2C
+ADD AL, AH ; AL=AL+AH
+MOV A, AL ;A = -(A+B+C) - 2(B-1)+2(c+1)
+MAIN ENDP
+END MAIN
